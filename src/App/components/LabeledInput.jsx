@@ -5,7 +5,7 @@ const INPUT_BG = "#F5F5F5";
 const INPUT_BORDER = "#E8E8E8";
 const LABEL_COLOR = "#36454F";
 
-export default function LabeledInput( {label}) {
+export default function LabeledInput( {label, placeholder}) {
 
     return (
         <View style={styles.wrapper}>
@@ -13,6 +13,7 @@ export default function LabeledInput( {label}) {
                 {label }
             </Text>
             <TextInput placeholderTextColor="#B5B5B5"
+            placeholder={placeholder}
             style={styles.input}/> 
         </View>
     )
