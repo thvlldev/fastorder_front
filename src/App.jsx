@@ -1,9 +1,6 @@
-import CadastroScreen from './App/screens/CadastroScreen';
-import LoginScreen from './App/screens/LoginScreen';
+import PerfilScreen from './App/screens/PerfilScreen';
 
 export default function App() { //Precisa chamar a tela principal!
-    return <CadastroScreen />
+    return <PerfilScreen />
 }
-
-
 
