@@ -1,15 +1,15 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet ,ScrollView} from "react-native";
 
 export default function PerfilScreen() {
   return (
     <View style={{ flex: 1 }}>
       <View style={styles.bckHeader}>
         <Text style={styles.titleBck}>Olá, usuário.</Text>
-        <Text>Bem-vindo de volta!</Text>
+        <Text style= {styles.textoBemVindo}>Bem-vindo de volta!</Text>
       </View>
 
-      <View
+      < ScrollView
         style={{
           paddingVertical: 10,
           paddingHorizontal: 20,
@@ -17,7 +17,7 @@ export default function PerfilScreen() {
         }}
       >
         <View style={styles.containerBranco}>
-          <Text style={[styles.titleCaixa, {paddingTop: 5, paddingLeft: 11}]}>Dados pessoais</Text>
+          <Text style={[styles.titleCaixa, {paddingTop: 5, paddingLeft: 11}]}>DADOS PESSOAIS</Text>
           <View style={styles.iconTexto}>
             <MaterialIcons
               name="person"
@@ -26,7 +26,7 @@ export default function PerfilScreen() {
               style={styles.iconStyle}
             />
             <View>
-              <Text style={styles.titleCaixa}>Nome</Text>
+              <Text style={styles.titleCaixa}>NOME</Text>
               <Text style={styles.textCaixa}>wad</Text>
             </View>
           </View>
@@ -38,7 +38,7 @@ export default function PerfilScreen() {
               style={styles.iconStyle}
             />
             <View>
-              <Text style={styles.titleCaixa}>Email</Text>
+              <Text style={styles.titleCaixa}>EMAIL</Text>
               <Text style={styles.textCaixa}>wad@wad.com</Text>
             </View>
           </View>
@@ -50,14 +50,14 @@ export default function PerfilScreen() {
               style={styles.iconStyle}
             />
             <View>
-              <Text style={styles.titleCaixa}>Telefone</Text>
+              <Text style={styles.titleCaixa}>TELEFONE</Text>
               <Text style={styles.textCaixa}>2140028922</Text>
             </View>
           </View>
 
         </View>
-                <View style={[styles.containerBranco, {marginTop: 20}]}>
-          <Text style={[styles.titleCaixa, {paddingTop: 5, paddingLeft: 11}]}>Endereço de entrega</Text>
+          <View style={[styles.containerBranco, {marginTop: 20}]}>
+          <Text style={[styles.titleCaixa, {paddingTop: 5, paddingLeft: 11}]}>ENDEREÇO DE ENTREGA</Text>
           <View style={styles.iconTexto}>
             <MaterialIcons
               name="pin-drop"
@@ -66,24 +66,116 @@ export default function PerfilScreen() {
               style={styles.iconStyle}
             />
             <View>
-              <Text style={styles.titleCaixa}>Rua endereço</Text>
+              <Text style={styles.titleCaixa}>RUA ENDEREÇO</Text>
               <Text style={styles.textCaixa}>complemento endereço</Text>
             </View>
-          </View>
- 
-
+          </View>          
         </View>
-      </View>
+
+        <View style={[styles.containerBranco, {marginTop: 20}]}>
+          <Text style={[styles.titleCaixa, {paddingTop: 5, paddingLeft: 11}]}>MÉTODO DE PAGAMENTO</Text>
+          <View style={styles.iconTexto}>
+            <MaterialIcons
+              name="attach-money"
+              size={50}
+              color="#001050"
+              style={styles.iconStyle}
+            />
+            <View>
+              <Text style={styles.titleCaixa}>PAGAMENTO PREFERIDO</Text>
+              <Text style={styles.textCaixa}>PIX</Text>
+            </View>
+          </View>          
+        </View>
+        {/* Área de ajuda */}
+        <View style={[styles.containerBranco, {marginTop: 20}]}>
+          <Text style={[styles.titleCaixa, {paddingTop: 5, paddingLeft: 11}]}>AJUDA</Text>
+          <View style={styles.iconTexto}>
+            <MaterialIcons
+              name="chat"
+              size={50}
+              color="#001050"
+              style={styles.iconStyle}
+            />
+            <View>
+              <Text style={styles.titleCaixa}>FALAR COM O RESTAURANTE</Text>
+            </View>
+          </View>
+          <View style={styles.iconTexto}>
+            <MaterialIcons
+              name="star-rate"
+              size={50}
+              color="#001050"
+              style={styles.iconStyle}
+            />
+            <View>
+              <Text style={styles.titleCaixa}>AVALIAR O APLICATIVO</Text>
+            </View>
+          </View>
+          <View style={styles.iconTexto}>
+            <MaterialIcons
+              name="description"
+              size={50}
+              color="#001050"
+              style={styles.iconStyle}
+            />
+            <View>
+              <Text style={styles.titleCaixa}>TERMOS E PRIVACIDADE</Text>
+            </View>
+          </View>
+        </View>
+         {/* Sair da conta */}
+          <View style= {[styles.containerBranco, {marginTop: 20}]}>
+            <View style={[styles.titleCaixa, {paddingTop: 5, paddingLeft: 11}]}>SAIR</View>
+            <View style={styles.iconTexto}>
+            <MaterialIcons
+              name="logout"
+              size={50}
+              color="#001050"
+              style={styles.iconStyle}
+            />
+            <View>
+              <Text style={styles.titleCaixa}>SAIR DA CONTA</Text>
+            </View>
+          </View>
+          </View>
+         
+        
+          
+
+        
+
+        
+
+
+
+
+      </ScrollView>
+
+
+
+
     </View>
+
+    
   );
 }
 
 const styles = StyleSheet.create({
   bckHeader: {
-    backgroundColor: "#2516fd",
+    backgroundColor: "#163469",
     paddingVertical: 40,
     paddingHorizontal: 20,
   },
+
+  textoBemVindo: {
+    fontFamily: 'Nunito, sans-serif',
+    fontSize: 13,
+    fontWeight: 400,
+    color: 'rgba(255, 255, 255, 0.5)'
+  },
+
+
 
   containerBranco: {
     backgroundColor: "#fff",
@@ -109,17 +201,17 @@ const styles = StyleSheet.create({
   },
 
   titleBck: {
-    fontFamily: "Arial",
+    fontFamily: "Outfit, sans-serif",
     color: "#fff",
     fontSize: 28,
     fontWeight: 650,
   },
 
   titleCaixa: {
-    fontFamily: "Arial", // arial aqui é placeholder
-    color: "#e0e0e0",
-    fontSize: 16,
-    fontWeight: 600,
+    fontFamily: "Nunito, sans-serif",
+    color: "rgb(187, 187, 187)",
+    fontSize: 11,
+    fontWeight: 900
   },
   textCaixa: {
     fontFamily: "Arial", // arial aqui é placeholder
@@ -134,3 +226,6 @@ const styles = StyleSheet.create({
     fontWeight: 500,
   },
 });
+
+
+
