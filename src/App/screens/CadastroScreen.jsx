@@ -4,8 +4,9 @@ import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import Button from "../components/Button";
 import LabeledInput from "../components/LabeledInput";
 import { ImageBackground } from "react-native-web";
-
+import {useNavigation}from "@react-navigation/native"
 export default function CadastroScreen() {
+  const navigation =useNavigation();
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -36,6 +37,7 @@ export default function CadastroScreen() {
       <View style={styles.caixaInput}>
         <View style={styles.abasInput}>
           <Button
+            onPress={()=>navigation.navigate('login')}
             heightButton={40}
             widthButton={130}
             espacamentoButton={0}
