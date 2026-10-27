@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginVertical: 10,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
 
     title: {
@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginVertical: 2,
         paddingVertical: 7,
+        fontWeight: 'bold'
 
     }
 

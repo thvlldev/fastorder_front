@@ -10,7 +10,7 @@ const Bottom = createBottomTabNavigator();
 export function BottomRoutes(){
     return(
         <Bottom.Navigator
-        initialRouteName = "perfil"
+        initialRouteName = "pedidos"
         screenOptions = {{
             headerShown: false,
             tabBarActiveTintColor: "#E38330",
