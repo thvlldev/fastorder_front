@@ -5,7 +5,7 @@ const INPUT_BG = "#F5F5F5";
 const INPUT_BORDER = "#E8E8E8";
 const LABEL_COLOR = "#36454F";
 
-export default function LabeledInput( {label, placeholder}) {
+export default function LabeledInput( {label, placeholder, value, onChangeText, secureTextEntry, keyboardType, autoCapitalize}) {
 
     return (
         <View style={styles.wrapper}>
@@ -14,7 +14,12 @@ export default function LabeledInput( {label, placeholder}) {
             </Text>
             <TextInput placeholderTextColor="#B5B5B5"
             placeholder={placeholder}
-            style={styles.input}/> 
+            value={value}
+            onChangeText={onChangeText}
+            secureTextEntry={secureTextEntry}
+            keyboardType={keyboardType}
+            autoCapitalize={autoCapitalize}
+            style={styles.input}/>
         </View>
     )
 }
@@ -24,7 +29,7 @@ const styles = StyleSheet.create({
         width: "100%", //Faz o componente ocupar toda a largura disponível.
         marginBottom: 14, // Define o espaço abaixo do campo
 
-        
+
     },
 
     label: {
@@ -41,7 +46,7 @@ const styles = StyleSheet.create({
         borderWidth: 2, // Define o comprimento da borda
         borderColor: INPUT_BORDER,
         shadowColor: "#000", // Define a cor da borda
-        shadowOffset: { width: 1, heigth: 2}, // Define a posição da sombra
+        shadowOffset: { width: 1, height: 2}, // Define a posição da sombra
         shadowOpacity: 0.08, // Define a transparência
         shadowRadius: 6,
 
@@ -50,7 +55,7 @@ const styles = StyleSheet.create({
 
         paddingHorizontal: 14,
         paddingVertical: 12,
-        
+
 
 
     },

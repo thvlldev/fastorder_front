@@ -5,19 +5,23 @@ import { Pressable, Text, StyleSheet } from "react-native";
 const BG_BUTTON = '#00213d';
 const TEXT_PRIMARY = '#FFFFFF';
 
-export default function Button({ textButton, heightButton, widthButton, espacamentoButton, backgroundButton, textColorButton}) { // Pra avisar que vai ser um componente reutilizavel
+export default function Button({ textButton, heightButton, widthButton, espacamentoButton, backgroundButton, textColorButton, onPress, disabled}) { // Pra avisar que vai ser um componente reutilizavel
     return(
-    
-        <Pressable style={[
-                styles.button, 
-                { height: heightButton, width: widthButton, marginHorizontal: espacamentoButton, backgroundColor: backgroundButton}
+
+        <Pressable
+            onPress={onPress}
+            disabled={disabled}
+            style={[
+                styles.button,
+                { height: heightButton, width: widthButton, marginHorizontal: espacamentoButton, backgroundColor: backgroundButton},
+                disabled && styles.desabilitado
             ]} >
             <Text style={[styles.title, {color: textColorButton}]}>
                 {textButton ? textButton : "Enviar"}
             </Text>
         </Pressable>
-        
-        
+
+
     )
 }
 
@@ -33,6 +37,10 @@ const styles = StyleSheet.create({
         marginVertical: 10,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+
+    desabilitado: {
+        opacity: 0.5,
     },
 
     title: {

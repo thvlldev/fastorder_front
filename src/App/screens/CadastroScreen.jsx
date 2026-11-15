@@ -1,21 +1,67 @@
 // Componente de tela
 
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
+import { useState } from "react";
+import { View, Text, StyleSheet, Image, Pressable, ImageBackground, ScrollView } from "react-native";
 import Button from "../components/Button";
 import LabeledInput from "../components/LabeledInput";
-import { ImageBackground } from "react-native-web";
 import {useNavigation}from "@react-navigation/native"
+import { useAuth } from "../contexts/AuthContext";
+import * as api from "../services/api";
+
 export default function CadastroScreen() {
   const navigation =useNavigation();
+  const { entrar } = useAuth();
+
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefone, setTelefone] = useState("");
+  const [senha, setSenha] = useState("");
+  const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [mensagem, setMensagem] = useState("");
+  const [carregando, setCarregando] = useState(false);
+
+  async function criarConta() {
+    if (!nome.trim() || !email.trim() || !senha) {
+      setMensagem("Preencha nome, e-mail e senha.");
+      return;
+    }
+    if (senha.length < 6) {
+      setMensagem("A senha precisa ter pelo menos 6 caracteres.");
+      return;
+    }
+    if (senha !== confirmarSenha) {
+      setMensagem("As senhas não são iguais.");
+      return;
+    }
+
+    setCarregando(true);
+    setMensagem("");
+    try {
+      // O back faz o hash da senha. O pagamento preferido começa como PIX e pode ser trocado no perfil.
+      await api.cadastrarCliente({
+        nome: nome.trim(),
+        email: email.trim(),
+        senha,
+        telefone: telefone.trim(),
+        metodoPagamento: "PIX",
+      });
+      await entrar(email.trim(), senha); // já entra com a conta nova
+      navigation.popToTop();
+    } catch (erro) {
+      setMensagem(erro.status ? "Não foi possível criar a conta. Confira os dados." : erro.message);
+      setCarregando(false);
+    }
+  }
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container} keyboardShouldPersistTaps="handled">
       <ImageBackground
         source={require("../../assets/testebck.jpg")}
         resizeMode="repeat"
         style={styles.imagemBck}
       >
         <View style={styles.botaoVoltar}>
-          <Button widthButton={35} heightButton={30} textButton={"⬅"}></Button>
+          <Button onPress={()=>navigation.goBack()} widthButton={35} heightButton={30} textButton={"⬅"}></Button>
         </View>
         <View style={{ alignItems: "center" }}>
           <Image
@@ -26,18 +72,17 @@ export default function CadastroScreen() {
             style={{
               marginBottom: 20,
               color: "#000",
-              fontFamily: "Roboto, sans-serif",
               fontSize: 15,
             }}
           >
-            Entre para continuar seu pedido
+            Crie sua conta gratuitamente
           </Text>
         </View>
       </ImageBackground>
       <View style={styles.caixaInput}>
         <View style={styles.abasInput}>
           <Button
-            onPress={()=>navigation.navigate('login')}
+            onPress={()=>navigation.replace('login')}
             heightButton={40}
             widthButton={130}
             espacamentoButton={0}
@@ -49,7 +94,7 @@ export default function CadastroScreen() {
             heightButton={40}
             widthButton={130}
             espacamentoButton={0}
-            textButton={"Cadastrar"}
+            textButton={"Criar conta"}
             textColorButton={"#F9CA5E"}
           />
         </View>
@@ -57,42 +102,68 @@ export default function CadastroScreen() {
           <LabeledInput
             label="Nome completo:"
             placeholder="Insira seu nome completo:"
+            value={nome}
+            onChangeText={setNome}
           />
 
           <LabeledInput
             label="Email:"
             placeholder="Insira seu endereço de email:"
+            value={email}
+            onChangeText={setEmail}
+            keyboardType="email-address"
+            autoCapitalize="none"
           />
 
-          <LabeledInput label="Senha:" placeholder="Insira sua senha:" />
+          <LabeledInput
+            label="Telefone:"
+            placeholder="(00)00000-0000"
+            value={telefone}
+            onChangeText={setTelefone}
+            keyboardType="phone-pad"
+          />
 
-          <LabeledInput label="Telefone:" placeholder="(00)00000-0000" />
+          <LabeledInput
+            label="Senha:"
+            placeholder="Mínimo 6 caracteres"
+            value={senha}
+            onChangeText={setSenha}
+            secureTextEntry
+          />
 
           <LabeledInput
             label="Repita sua senha:"
             placeholder="Insira sua senha:"
+            value={confirmarSenha}
+            onChangeText={setConfirmarSenha}
+            secureTextEntry
           />
 
+          {mensagem ? <Text style={styles.mensagem}>{mensagem}</Text> : null}
+
           <Button
-            textButton="Criar conta grátis"
+            onPress={criarConta}
+            disabled={carregando}
+            textButton={carregando ? "Criando conta..." : "Criar conta grátis"}
             backgroundButton={"#E38330"}
           />
 
-          <View style={{ alignItems: "center", marginTop: 10 }}>
-            <Text>
-              Já tem conta?
-              <Pressable style={{ color: "#E38330" }}> Faça login</Pressable>
-            </Text>
+          <View style={{ alignItems: "center", marginTop: 10, flexDirection: "row", justifyContent: "center" }}>
+            <Text>Já tem conta? </Text>
+            <Pressable onPress={()=>navigation.replace('login')}>
+              <Text style={{ color: "#E38330", fontWeight: "bold" }}>Faça login</Text>
+            </Pressable>
           </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#FFFFFF",
   },
   title: {
     fontSize: 20,
@@ -104,21 +175,29 @@ const styles = StyleSheet.create({
   caixaInput: {
     backgroundColor: "#FFFFFF",
     paddingTop: 20,
+    paddingBottom: 30,
     borderRadius: 20,
-    height: 700,
   },
 
   abasInput: {
     flexDirection: "row",
     justifyContent: "center",
+    marginBottom: 10,
   },
 
   botaoVoltar: {
-    paddingTop: 20,
+    paddingTop: 30,
+    alignItems: "flex-start",
   },
 
   imagemBck: {
     width: "auto",
     height: "auto",
+  },
+
+  mensagem: {
+    color: "#C0392B",
+    textAlign: "center",
+    marginBottom: 4,
   },
 });

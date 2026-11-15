@@ -1,8 +1,10 @@
- import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import HomeScreen from "../screens/HomeScreen";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { BottomRoutes } from "./BottomRoutes";
 import LoginScreen from "../screens/LoginScreen"
 import CadastroScreen from "../screens/CadastroScreen"
 import ProdutoScreen from "../screens/ProdutoScreen";
+import FinalizarPedidoScreen from "../screens/FinalizarPedidoScreen";
+import PedidoConfirmadoScreen from "../screens/PedidoConfirmadoScreen";
  const Stack = createNativeStackNavigator();
 
 
@@ -11,8 +13,8 @@ import ProdutoScreen from "../screens/ProdutoScreen";
         <Stack.Navigator screenOptions = {{headerShown: false}}>
 
              <Stack.Screen
-             name = "inicio"
-             component={HomeScreen}
+             name = "abas"
+             component={BottomRoutes}
              />
              <Stack.Screen
              name = "login"
@@ -26,8 +28,16 @@ import ProdutoScreen from "../screens/ProdutoScreen";
              name = "produto"
              component={ProdutoScreen}
              />
+             <Stack.Screen
+             name = "finalizar"
+             component={FinalizarPedidoScreen}
+             />
+             <Stack.Screen
+             name = "pedidoConfirmado"
+             component={PedidoConfirmadoScreen}
+             />
 
-                
+
          </Stack.Navigator>
      )
  }
