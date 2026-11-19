@@ -2,7 +2,7 @@
 
 // No navegador e no emulador iOS, localhost funciona.
 // No celular com Expo Go, troque pelo IP do computador na rede, ex: "http://192.168.0.10:8080"
-export const BASE_URL = "http://localhost:8080";
+export const BASE_URL = "http://10.0.2.2:8080";
 
 // Mesmo valor de TAXA_ENTREGA no PedidoService do back. O total de verdade é calculado lá.
 export const TAXA_ENTREGA = 5.0;
